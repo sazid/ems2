@@ -13,12 +13,26 @@ class University(models.Model):
 
 
 class User(AbstractUser):
-    is_admin = models.BooleanField('admin status', default=False)
-    is_university_admin = models.BooleanField('university admin status', default=False)
-    is_faculty = models.BooleanField('faculty status', default=False)
-    is_student = models.BooleanField('student status', default=False)
+    ADMIN = 1
+    UNIVERSITY_ADMIN = 2
+    FACULTY = 3
+    STUDENT = 4
+    ROLE_CHOICES = (
+        (STUDENT, 'Student'),
+        (FACULTY, 'Faculty'),
+        (UNIVERSITY_ADMIN, 'University Admin'),
+        (ADMIN, 'Admin'),
+    )
 
+    email = models.EmailField(
+        verbose_name='email address',
+        max_length=255,
+        unique=True,
+    )
+    role = models.PositiveSmallIntegerField('user role', choices=ROLE_CHOICES, default=4)
     university = models.ForeignKey(University, on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    REQUIRED_FIELDS = ['email']
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
