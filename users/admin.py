@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group
 
 class UserAdmin(BaseUserAdmin):
     search_fields = ['username', 'email', 'first_name', 'last_name']
-    list_display = ('username', 'first_name', 'last_name',)
+    list_display = ('username', 'first_name', 'last_name', 'role', 'is_active', 'is_superuser',)
     fieldsets = (
         ('Login', {'fields': (
             'username',
@@ -22,7 +22,6 @@ class UserAdmin(BaseUserAdmin):
         )}),
         ('Permissions', {'fields': (
             'is_active',
-            'is_staff',
             'is_superuser',
         )}),
     )
