@@ -9,5 +9,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://127.0.0.1:5432/ems2</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="postgres@localhost" uuid="826f9062-5312-423a-a952-d689c8ca0506">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/ems2</jdbc-url>
+    </data-source>
   </component>
 </project>
