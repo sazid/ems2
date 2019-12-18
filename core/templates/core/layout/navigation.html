@@ -13,12 +13,18 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item float-right">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
-                <li class="nav-item float-right">
-                    <a class="nav-link" href="{% url 'users-register' %}">Register</a>
-                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item float-right">
+                        <a class="nav-link" href="{% url 'users-logout' %}">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item float-right">
+                        <a class="nav-link" href="{% url 'users-login' %}">Login</a>
+                    </li>
+                    <li class="nav-item float-right">
+                        <a class="nav-link" href="{% url 'users-register' %}">Register</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>

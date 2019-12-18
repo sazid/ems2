@@ -14,8 +14,8 @@ def student_registration_view(request):
             form.role = User.STUDENT
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}!')
-            return redirect('core-home')
+            messages.success(request, f'Account created for {username}! You can now log in.')
+            return redirect('users-login')
         else:
             messages.error(request, 'Failed to create account!')
     else:
