@@ -31,14 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'core.apps.CoreConfig',
+    'users.apps.UsersConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'core.apps.CoreConfig',
 ]
 
 MIDDLEWARE = [
@@ -127,4 +128,4 @@ STATIC_URL = '/static/'
 
 
 # Custom settings
-AUTH_USER_MODEL = 'core.User'
+AUTH_USER_MODEL = 'users.User'

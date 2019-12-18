@@ -1,6 +1,6 @@
-from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 from django.db import models
+from users.models import User
 
 
 class University(models.Model):
@@ -8,46 +8,10 @@ class University(models.Model):
     email = models.CharField(max_length=250)
     is_active = models.BooleanField(default=True)
 
+    users = models.ManyToManyField(User)
+
     def __str__(self):
         return self.name
-
-
-class User(AbstractUser):
-    ADMIN = 1
-    UNIVERSITY_ADMIN = 2
-    FACULTY = 3
-    STUDENT = 4
-    ROLE_CHOICES = (
-        (STUDENT, 'Student'),
-        (FACULTY, 'Faculty'),
-        (UNIVERSITY_ADMIN, 'University Admin'),
-        (ADMIN, 'Admin'),
-    )
-
-    email = models.EmailField(
-        verbose_name='email address',
-        max_length=255,
-        unique=True,
-    )
-    role = models.PositiveSmallIntegerField('user role', choices=ROLE_CHOICES, default=4)
-    university = models.ForeignKey(University, on_delete=models.DO_NOTHING, blank=True, null=True)
-
-    REQUIRED_FIELDS = ['email']
-
-    def is_admin(self):
-        return self.role == self.ADMIN
-
-    def is_university_admin(self):
-        return self.role == self.UNIVERSITY_ADMIN
-
-    def is_faculty(self):
-        return self.role == self.FACULTY
-
-    def is_student(self):
-        return self.role == self.STUDENT
-
-    def __str__(self):
-        return f'{self.first_name} {self.last_name}'
 
 
 class Course(models.Model):
@@ -65,6 +29,7 @@ class Exam(models.Model):
     name = models.CharField(max_length=500)
     start = models.DateTimeField()
     end = models.DateTimeField()
+    note = models.TextField()
 
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
