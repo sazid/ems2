@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'users.apps.UsersConfig',
 
+    'crispy_forms',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -129,3 +131,5 @@ STATIC_URL = '/static/'
 
 # Custom settings
 AUTH_USER_MODEL = 'users.User'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
