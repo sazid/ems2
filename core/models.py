@@ -9,6 +9,7 @@ class University(models.Model):
     email = models.CharField(max_length=250)
     is_active = models.BooleanField(default=True)
     website = models.URLField(blank=True, default='')
+    description = models.TextField(blank=True, default='')
 
     users = models.ManyToManyField(User)
 
