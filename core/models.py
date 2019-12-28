@@ -16,6 +16,9 @@ class University(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('user_admin-university-detail', kwargs={'pk': self.pk})
+
 
 class Course(models.Model):
     name = models.CharField(max_length=500)

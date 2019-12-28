@@ -3,7 +3,7 @@
 {% block content %}
     <h1>University List</h1>
 
-    <table class="table">
+    <table class="table table-hover">
         <thead>
         <tr>
             <th scope="col">ID</th>
@@ -13,14 +13,15 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            {% for university in object_list %}
+        {% for university in object_list %}
+            <tr>
+
                 <td>{{ university.id }}</td>
-                <td>{{ university.name }}</td>
+                <td><a href="{% url 'user_admin-university-detail' university.pk %}">{{ university.name }}</a></td>
                 <td>{{ university.email }}</td>
                 <td>{{ university.is_active }}</td>
-            {% endfor %}
-        </tr>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 {% endblock content %}

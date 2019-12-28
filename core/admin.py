@@ -5,7 +5,6 @@ from core.models import (
     Course,
     Exam,
     Question,
-    McqChoices,
 )
 
 
@@ -18,4 +17,3 @@ admin.site.register(University)
 admin.site.register(Course)
 admin.site.register(Exam)
 admin.site.register(Question)
-admin.site.register(McqChoices)
