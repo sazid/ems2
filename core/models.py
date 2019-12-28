@@ -1,12 +1,14 @@
 from django.utils import timezone
 from django.db import models
 from users.models import User
+from django.urls import reverse
 
 
 class University(models.Model):
     name = models.CharField(max_length=250)
     email = models.CharField(max_length=250)
     is_active = models.BooleanField(default=True)
+    website = models.URLField(blank=True, default='')
 
     users = models.ManyToManyField(User)
 
