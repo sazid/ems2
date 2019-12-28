@@ -59,12 +59,6 @@ class Question(models.Model):
         return f'{self.question_type} - {self.title[:25]}'
 
 
-class McqChoices(models.Model):
-    value = models.PositiveSmallIntegerField()
-
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-
-
 class Submission(models.Model):
     submitted_at = models.DateTimeField(default=timezone.now)
 
