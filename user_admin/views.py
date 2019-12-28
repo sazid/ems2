@@ -59,3 +59,13 @@ class UniversityUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     form_class = forms.UniversityCreateForm
 
     test_func = admin_test_func
+
+
+class UniversityAdminListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = User
+    template_name = 'user_admin/university_admin_list.html'
+
+    def get_queryset(self):
+        return User.objects.filter(role=User.UNIVERSITY_ADMIN).order_by('first_name')
+
+    test_func = admin_test_func
