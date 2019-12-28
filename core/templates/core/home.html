@@ -1,5 +1,9 @@
 {% extends 'core/layout/base.html' %}
 
 {% block content %}
-    <h1>Exam Management System</h1>
+    {% if user.get_role_display == 'Admin' %}
+        {% include 'user_admin/home.html' %}
+    {% else %}
+        <h1>Exam Management System</h1>
+    {% endif %}
 {% endblock content %}
