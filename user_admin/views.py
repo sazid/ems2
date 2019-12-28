@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
     ListView,
     DetailView,
@@ -13,13 +13,27 @@ from users.models import User
 from user_admin import forms
 
 
-class UniversityListView(ListView):
+def admin_test_func(self):
+    """
+    Tests to check whether the user is an admin or not
+    :param self: self parameter from inside the class
+    :return: True if the user is admin
+    """
+
+    if self.request.user.role == User.ADMIN:
+        return True
+    return False
+
+
+class UniversityListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = University
     template_name = 'user_admin/university_list.html'
     ordering = ['name']
 
+    test_func = admin_test_func
 
-class UniversityDetailView(DetailView):
+
+class UniversityDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = University
     template_name = 'user_admin/university_detail.html'
 
@@ -28,14 +42,20 @@ class UniversityDetailView(DetailView):
         context['university_admins'] = User.objects.filter(role=User.UNIVERSITY_ADMIN, university=self.object)
         return context
 
+    test_func = admin_test_func
 
-class UniversityCreateView(CreateView):
+
+class UniversityCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = University
     template_name = 'user_admin/university_form.html'
     form_class = forms.UniversityCreateForm
 
+    test_func = admin_test_func
 
-class UniversityUpdateView(UpdateView):
+
+class UniversityUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = University
     template_name = 'user_admin/university_form.html'
     form_class = forms.UniversityCreateForm
+
+    test_func = admin_test_func
