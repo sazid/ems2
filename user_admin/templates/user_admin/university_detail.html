@@ -1,5 +1,9 @@
 {% extends 'core/layout/base.html' %}
 
+{% block sidebar %}
+    <a href="{% url 'user_admin-university-update' object.pk %}" class="btn btn-primary">Update</a>
+{% endblock sidebar %}
+
 {% block content %}
     <div class="card">
         <div class="card-body">
@@ -11,9 +15,6 @@
             {% if object.website %}
                 <a href="{{ object.website }}" target="_blank" class="card-link">Visit Website</a>
             {% endif %}
-        </div>
-        <div class="card-footer">
-            <a href="{% url 'user_admin-university-update' object.pk %}" class="btn btn-sm btn-primary">Update</a>
         </div>
     </div>
 

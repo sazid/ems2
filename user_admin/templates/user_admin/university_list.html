@@ -1,7 +1,12 @@
 {% extends 'core/layout/base.html' %}
 
+{% block sidebar %}
+    <a href="{% url 'user_admin-university-create' %}" class="btn btn-primary">New University</a>
+{% endblock sidebar %}
+
 {% block content %}
     <h1>University List</h1>
+
 
     <table class="table table-hover">
         <thead>
