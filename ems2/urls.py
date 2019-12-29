@@ -22,6 +22,7 @@ urlpatterns = [
     path('u/', include('users.urls')),
 
     path('admin/', include('user_admin.urls')),
+    path('uni-admin/', include('user_uni_admin.urls')),
 
     path('', include('core.urls')),
 ]
