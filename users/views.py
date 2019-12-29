@@ -1,3 +1,5 @@
+from distutils import command
+
 from django.shortcuts import render, redirect
 from users.forms import UserRegistrationForm
 from django.contrib import messages
@@ -7,19 +9,32 @@ from users.models import User
 
 
 def student_registration_view(request):
+    # Students can create their own accounts
+    user_role = User.STUDENT
+
+    if request.user.is_authenticated:
+        if request.user.role == User.ADMIN:
+            # Admins can create University Admin accounts
+            user_role = User.UNIVERSITY_ADMIN
+        elif request.user.role == User.UNIVERSITY_ADMIN:
+            # University Admins can create Faculty accounts
+            user_role = User.FACULTY
+
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
+
         if form.is_valid():
-            # Save this user as a student
-            form.role = User.STUDENT
-            form.save()
+            user = form.save(commit=False)
+            user.role = user_role
+            user.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}! You can now log in.')
-            return redirect('users-login')
+            messages.success(request, f'Account created for {username}!')
+
+            return redirect('core-home')
         else:
             messages.error(request, 'Failed to create account!')
     else:
-        form = UserRegistrationForm()
+        form = UserRegistrationForm(initial={'role': user_role})
 
     return render(request, 'users/register.html', {'form': form})
 

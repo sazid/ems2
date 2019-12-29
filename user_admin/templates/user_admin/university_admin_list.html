@@ -3,6 +3,8 @@
 {% block content %}
     <h1>University Admins</h1>
 
+     <a class="btn btn-primary mb-3" href="{% url 'users-register' %}">New University Admin</a>
+
     <table class="table table-hover">
         <thead>
         <tr>
@@ -23,9 +25,13 @@
                 <td>{{ user.first_name }} {{ user.last_name }}</td>
                 <td>{{ user.email }}</td>
                 <td>
+                    {% if user.university_set.first %}
                     <a href="{% url 'user_admin-university-detail' user.university_set.first.pk %}">
                         {{ user.university_set.first.name }}
                     </a>
+                    {% else %}
+                        -
+                    {% endif %}
                 </td>
                 <td>{{ user.is_active }}</td>
             </tr>
