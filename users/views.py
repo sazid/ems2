@@ -23,7 +23,7 @@ def user_registration_view(request):
             user_role = User.FACULTY
 
     if request.method == 'POST':
-        form = UserRegistrationForm(request.POST)
+        form = UserRegistrationForm(request.user, request.POST)
 
         if form.is_valid():
             user = form.save(commit=False)
@@ -33,10 +33,12 @@ def user_registration_view(request):
             user.save()
 
             # Set university for faculty users
-            if request.user.role == User.UNIVERSITY_ADMIN:
-                for uni in request.user.university_set.all():
-                    user.university_set.add(uni)
-                user.save()
+            if not request.user.is_authenticated:
+                uni_id = form.cleaned_data.get('university')
+                user.university_set.add(uni_id)
+            elif request.user.role == User.UNIVERSITY_ADMIN:
+                uni_id = form.cleaned_data.get('university')
+                user.university_set.add(uni_id)
 
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
@@ -45,7 +47,12 @@ def user_registration_view(request):
         else:
             messages.error(request, 'Failed to create account!')
     else:
-        form = UserRegistrationForm(initial={'role': user_role})
+        if not request.user.is_authenticated:
+            form = UserRegistrationForm(False, initial={'role': user_role})
+        elif request.user.is_authenticated and request.user.role == User.ADMIN:
+            form = UserRegistrationForm(None, initial={'role': user_role})
+        else:
+            form = UserRegistrationForm(request.user, initial={'role': user_role})
 
     return render(request, 'users/register.html', {'form': form})
 
