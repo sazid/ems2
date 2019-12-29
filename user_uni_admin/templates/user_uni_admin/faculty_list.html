@@ -1,13 +1,11 @@
 {% extends 'core/layout/base.html' %}
 
 {% block sidebar %}
-    <a class="btn btn-primary" href="{% url 'users-register' %}">New University Admin</a>
+    <a class="btn btn-primary" href="{% url 'users-register' %}">New Faculty</a>
 {% endblock sidebar %}
 
 {% block content %}
-    <h1>University Admins</h1>
-
-
+    <h1>Faculties</h1>
 
     <table class="table table-hover">
         <thead>
@@ -30,8 +28,7 @@
                 <td>{{ user.email }}</td>
                 <td>
                     {% for university in user.university_set.all %}
-                    <a href="{% url 'user_admin-university-detail' university.pk %}">
-                        {{ university.name }}</a>{% if not forloop.last %}, {% endif %}
+                        {{ university.name }}{% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </td>
                 <td>{{ user.is_active }}</td>

@@ -61,11 +61,14 @@ class UniversityUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     test_func = uni_admin_test_func
 
 
-class UniversityAdminListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+class FacultyListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = User
-    template_name = 'user_admin/university_admin_list.html'
+    template_name = 'user_uni_admin/faculty_list.html'
 
     def get_queryset(self):
-        return User.objects.filter(role=User.UNIVERSITY_ADMIN).order_by('first_name')
+        return User.objects.filter(
+            role=User.FACULTY,
+            university__in=self.request.user.university_set.all()
+        ).order_by('first_name').distinct()
 
     test_func = uni_admin_test_func

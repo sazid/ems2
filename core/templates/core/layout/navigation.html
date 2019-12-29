@@ -10,6 +10,8 @@
             <ul class="navbar-nav mr-auto">
                 {% if user.get_role_display == 'Admin' %}
                     {% include 'user_admin/links.html' %}
+                {% elif user.get_role_display == 'University Admin' %}
+                    {% include 'user_uni_admin/links.html' %}
                 {% endif %}
 
                 <li class="nav-item">

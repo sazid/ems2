@@ -1,7 +1,7 @@
 from django.urls import path
 
 from core.views import core
-from user_admin import views
+from user_uni_admin import views
 
 urlpatterns = [
     # path('university/', views.UniversityListView.as_view(), name='user_admin-university-list'),
@@ -9,5 +9,5 @@ urlpatterns = [
     # path('university/new/', views.UniversityCreateView.as_view(), name='user_admin-university-create'),
     # path('university/<int:pk>/update/', views.UniversityUpdateView.as_view(), name='user_admin-university-update'),
     #
-    # path('university-admin/', views.UniversityAdminListView.as_view(), name='user_admin-university-admin-list'),
+    path('faculty/', views.FacultyListView.as_view(), name='user_uni_admin-faculty-list'),
 ]
