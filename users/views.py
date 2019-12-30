@@ -33,7 +33,7 @@ def user_registration_view(request):
             user.save()
 
             # Set university for faculty users
-            if request.user.role == User.UNIVERSITY_ADMIN:
+            if request.user.is_authenticated and request.user.role == User.UNIVERSITY_ADMIN:
                 for uni in request.user.university_set.all():
                     user.university_set.add(uni)
                 user.save()
