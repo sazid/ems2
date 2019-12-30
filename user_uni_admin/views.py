@@ -7,7 +7,7 @@ from django.views.generic import (
     UpdateView,
 )
 
-from core.models import University
+from core.models import Course
 from users.models import User
 
 from user_admin import forms
@@ -25,37 +25,41 @@ def uni_admin_test_func(self):
     return False
 
 
-class UniversityListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
-    model = University
-    template_name = 'user_admin/university_list.html'
-    ordering = ['name']
+class CourseListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = Course
+    template_name = 'user_uni_admin/course_list.html'
+
+    def get_queryset(self):
+        return Course.objects.filter(
+            university=self.request.user.university_set.first()
+        ).order_by('name')
 
     test_func = uni_admin_test_func
 
 
-class UniversityDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
-    model = University
-    template_name = 'user_admin/university_detail.html'
+class CourseDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    model = Course
+    template_name = 'user_uni_admin/course_detail.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(UniversityDetailView, self).get_context_data(**kwargs)
-        context['university_admins'] = User.objects.filter(role=User.UNIVERSITY_ADMIN, university=self.object)
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super(CourseDetailView, self).get_context_data(**kwargs)
+    #     context['university_admins'] = User.objects.filter(role=User.UNIVERSITY_ADMIN, university=self.object)
+    #     return context
 
     test_func = uni_admin_test_func
 
 
-class UniversityCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
-    model = University
-    template_name = 'user_admin/university_form.html'
+class CourseCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = Course
+    template_name = 'user_uni_admin/course_form.html'
     form_class = forms.UniversityCreateForm
 
     test_func = uni_admin_test_func
 
 
-class UniversityUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    model = University
-    template_name = 'user_admin/university_form.html'
+class CourseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Course
+    template_name = 'user_uni_admin/course_form.html'
     form_class = forms.UniversityCreateForm
 
     test_func = uni_admin_test_func
