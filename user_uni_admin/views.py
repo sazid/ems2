@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse
 from django.views.generic import (
     ListView,
     DetailView,
@@ -10,7 +11,7 @@ from django.views.generic import (
 from core.models import Course
 from users.models import User
 
-from user_admin import forms
+from user_uni_admin import forms
 
 
 def uni_admin_test_func(self):
@@ -41,18 +42,13 @@ class CourseDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Course
     template_name = 'user_uni_admin/course_detail.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(CourseDetailView, self).get_context_data(**kwargs)
-    #     context['university_admins'] = User.objects.filter(role=User.UNIVERSITY_ADMIN, university=self.object)
-    #     return context
-
     test_func = uni_admin_test_func
 
 
 class CourseCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Course
     template_name = 'user_uni_admin/course_form.html'
-    form_class = forms.UniversityCreateForm
+    form_class = forms.CourseCreateForm
 
     test_func = uni_admin_test_func
 
@@ -60,7 +56,7 @@ class CourseCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 class CourseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Course
     template_name = 'user_uni_admin/course_form.html'
-    form_class = forms.UniversityCreateForm
+    form_class = forms.CourseCreateForm
 
     test_func = uni_admin_test_func
 

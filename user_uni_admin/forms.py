@@ -7,7 +7,7 @@ from core.models import Course
 class CourseCreateForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ('name', 'code', 'is_active',)
+        fields = ('name', 'code', 'is_active', 'university',)
 
     # def __init__(self, *args, **kwargs):
     #     super(CourseCreateForm, self).__init__(*args, **kwargs)

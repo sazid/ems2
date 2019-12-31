@@ -1,7 +1,7 @@
 {% extends 'core/layout/base.html' %}
 
 {% block sidebar %}
-    <a href="{% url 'user_admin-university-update' object.pk %}" class="btn btn-primary">Update</a>
+    <a href="{% url 'user_uni_admin-course-update' object.pk %}" class="btn btn-primary">Update</a>
 {% endblock sidebar %}
 
 {% block content %}
@@ -9,12 +9,11 @@
         <div class="card-body">
             <h5 class="card-title">{{ object.name }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">
-                <a target="_blank" href="mailto:{{ object.email }}">{{ object.email }}</a>
+                Code: {{ object.code }}
             </h6>
-            <p class="card-text">{{ object.description }}</p>
-            {% if object.website %}
-                <a href="{{ object.website }}" target="_blank" class="card-link">Visit Website</a>
-            {% endif %}
+            <h6 class="card-subtitle mb-2 text-muted">
+                Active: {{ object.is_active }}
+            </h6>
         </div>
     </div>
 
