@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib import messages
 from django.urls import reverse
 from django.views.generic import (
     ListView,
@@ -8,7 +9,7 @@ from django.views.generic import (
     UpdateView,
 )
 
-from core.models import Course
+from core.models import Course, University
 from users.models import User
 
 from user_uni_admin import forms
@@ -49,6 +50,18 @@ class CourseCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Course
     template_name = 'user_uni_admin/course_form.html'
     form_class = forms.CourseCreateForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            course = form.instance
+
+            course.university = request.user.university_set.first()
+            course.save()
+
+            messages.success(request, f'Course created successfully.')
+
+            return redirect(reverse('user_uni_admin-course-detail', kwargs={'pk': course.pk}))
 
     test_func = uni_admin_test_func
 
