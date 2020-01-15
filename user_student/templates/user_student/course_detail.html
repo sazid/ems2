@@ -1,0 +1,42 @@
+{% extends 'core/layout/base.html' %}
+
+{% block sidebar %}
+    <a href="{% url 'user_uni_admin-course-update' object.pk %}" class="btn btn-primary">Update</a>
+{% endblock sidebar %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ object.name }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">
+                Code: {{ object.code }}
+            </h6>
+            <h6 class="card-subtitle mb-2 text-muted">
+                Active: {{ object.is_active }}
+            </h6>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Username</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Active</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in university_admins %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td><a href="#">{{ user.username }}</a></td>
+                <td>{{ user.first_name }} {{ user.last_name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.is_active }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

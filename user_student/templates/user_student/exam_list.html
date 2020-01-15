@@ -1,0 +1,30 @@
+{% extends 'core/layout/base.html' %}
+
+{% block sidebar %}
+{% endblock sidebar %}
+
+{% block content %}
+    <h1>Exam List</h1>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Start</th>
+            <th scope="col">End</th>
+{#            <th scope="col">Course</th>#}
+        </tr>
+        </thead>
+        <tbody>
+        {% for exam in object_list %}
+            <tr>
+                <td>{{ exam.id }}</td>
+                <td><a href="#">{{ exam.name }}</a></td>
+                <td>{{ exam.start }}</td>
+                <td>{{ exam.end }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

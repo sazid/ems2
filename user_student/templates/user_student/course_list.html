@@ -1,0 +1,30 @@
+{% extends 'core/layout/base.html' %}
+
+{% block sidebar %}
+{#    <a href="{% url 'user_uni_admin-course-create' %}" class="btn btn-primary">New Course</a>#}
+{% endblock sidebar %}
+
+{% block content %}
+    <h1>Course List</h1>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Code</th>
+            <th scope="col">Active</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for course in object_list %}
+            <tr>
+                <td>{{ course.id }}</td>
+                <td><a href="{% url 'user_student-exam-list' course.pk %}">{{ course.name }}</a></td>
+                <td>{{ course.code }}</td>
+                <td>{{ course.is_active }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

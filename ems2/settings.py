@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'user_admin.apps.UserAdminConfig',
     'user_uni_admin.apps.UserUniAdminConfig',
+    'user_student.apps.UserStudentConfig',
 
     'crispy_forms',
 

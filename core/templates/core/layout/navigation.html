@@ -12,6 +12,8 @@
                     {% include 'user_admin/links.html' %}
                 {% elif user.get_role_display == 'University Admin' %}
                     {% include 'user_uni_admin/links.html' %}
+                {% elif user.get_role_display == 'Student' %}
+                    {% include 'user_student/links.html' %}
                 {% endif %}
 
                 <li class="nav-item">
