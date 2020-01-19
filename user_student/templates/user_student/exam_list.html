@@ -1,30 +1,98 @@
 {% extends 'core/layout/base.html' %}
 
 {% block sidebar %}
+    <ul class="nav nav-pill">
+        <li class="active"><a class="btn" data-toggle="pill" href="#ongoing_exams">Ongoing</a></li>
+        <li><a class="btn" data-toggle="pill" href="#previous_exams">Previous</a></li>
+        <li><a class="btn" data-toggle="pill" href="#upcoming_exams">Upcoming</a></li>
+    </ul>
 {% endblock sidebar %}
 
 {% block content %}
     <h1>Exam List</h1>
 
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Start</th>
-            <th scope="col">End</th>
-{#            <th scope="col">Course</th>#}
-        </tr>
-        </thead>
-        <tbody>
-        {% for exam in object_list %}
-            <tr>
-                <td>{{ exam.id }}</td>
-                <td><a href="#">{{ exam.name }}</a></td>
-                <td>{{ exam.start }}</td>
-                <td>{{ exam.end }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="tab-content">
+        <div id="ongoing_exams" class="tab-pane fade in active">
+            <h4>Ongoing Exams</h4>
+            <div>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Start</th>
+                        <th scope="col">End</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for exam in object_list %}
+                        {% if exam.is_ongoing %}
+                        <tr>
+                            <td>{{ exam.id }}</td>
+                            <td><a href="#">{{ exam.name }}</a></td>
+                            <td>{{ exam.start }}</td>
+                            <td>{{ exam.end }}</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="previous_exams" class="tab-pane fade">
+            <h3>Previous Exams</h3>
+            <div>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Start</th>
+                        <th scope="col">End</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for exam in object_list %}
+                        {% if exam.is_previous %}
+                        <tr>
+                            <td>{{ exam.id }}</td>
+                            <td><a href="#">{{ exam.name }}</a></td>
+                            <td>{{ exam.start }}</td>
+                            <td>{{ exam.end }}</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="upcoming_exams" class="tab-pane fade">
+            <h3>Upcoming Exams</h3>
+            <div>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Start</th>
+                        <th scope="col">End</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for exam in object_list %}
+                        {% if exam.is_upcoming %}
+                        <tr>
+                            <td>{{ exam.id }}</td>
+                            <td><a href="#">{{ exam.name }}</a></td>
+                            <td>{{ exam.start }}</td>
+                            <td>{{ exam.end }}</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 {% endblock content %}
