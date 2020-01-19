@@ -45,6 +45,15 @@ class Exam(models.Model):
     def __str__(self):
         return f'{self.name} {self.course}'
 
+    def is_ongoing(self):
+        return self.start <= timezone.now() <= self.end
+
+    def is_previous(self):
+        return self.start <= self.end < timezone.now()
+
+    def is_upcoming(self):
+        return self.end >= self.start > timezone.now()
+
 
 class Question(models.Model):
     QUESTION_TYPE_MCQ = 1
