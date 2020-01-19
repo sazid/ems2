@@ -29,7 +29,7 @@
                         {% if exam.is_ongoing %}
                         <tr>
                             <td>{{ exam.id }}</td>
-                            <td><a href="#">{{ exam.name }}</a></td>
+                            <td><a href="{% url 'user_student-new-submission' exam.pk %}">{{ exam.name }}</a></td>
                             <td>{{ exam.start }}</td>
                             <td>{{ exam.end }}</td>
                         </tr>
@@ -56,7 +56,7 @@
                         {% if exam.is_previous %}
                         <tr>
                             <td>{{ exam.id }}</td>
-                            <td><a href="#">{{ exam.name }}</a></td>
+                            <td><a href="{% url 'user_student-new-submission' exam.pk %}">{{ exam.name }}</a></td>
                             <td>{{ exam.start }}</td>
                             <td>{{ exam.end }}</td>
                         </tr>
@@ -83,7 +83,7 @@
                         {% if exam.is_upcoming %}
                         <tr>
                             <td>{{ exam.id }}</td>
-                            <td><a href="#">{{ exam.name }}</a></td>
+                            <td><a href="{% url 'user_student-new-submission' exam.pk %}">{{ exam.name }}</a></td>
                             <td>{{ exam.start }}</td>
                             <td>{{ exam.end }}</td>
                         </tr>

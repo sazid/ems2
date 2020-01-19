@@ -12,7 +12,7 @@ from django.views.generic import (
 from core.models import Exam, Course, University
 from users.models import User
 
-from user_uni_admin import forms
+from user_student import forms
 
 
 def student_test_func(self):
@@ -51,8 +51,13 @@ class ExamListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     test_func = student_test_func
 
 
-class CourseDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
-    model = Course
-    template_name = 'user_uni_admin/course_detail.html'
+class ExamView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = Exam
+    template_name = 'user_student/exam_form.html'
+    form_class = forms.ExamForm
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class(exam_pk=self.kwargs['pk'])
+        return render(request, self.template_name, {'form': form})
 
     test_func = student_test_func
