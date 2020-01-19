@@ -74,7 +74,7 @@ class Submission(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.submitted_at
+        return f'{self.user} at {self.submitted_at}'
 
 
 class Answer(models.Model):
